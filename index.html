@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Business Directory - Non-Profit Business Listings</title>
+    <meta name="description" content="Free community business directory helping you find local businesses and services. Non-profit directory connecting communities with local enterprises.">
+    <meta name="keywords" content="business directory, local business, community directory, non-profit, business listings">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <div class="navbar-brand" onclick="showSection('home')" style="cursor: pointer;">
+                    <h2>🏢 Community Directory</h2>
+                    <span class="nonprofit-badge">Non-Profit</span>
+                </div>
+                <div class="navbar-menu">
+                    <a href="javascript:void(0);" onclick="showSection('home')" class="nav-link">Home</a>
+                    <a href="javascript:void(0);" onclick="showSection('search')" class="nav-link">Search</a>
+                    <a href="javascript:void(0);" onclick="showSection('categories')" class="nav-link">Categories</a>
+                    <a href="javascript:void(0);" onclick="showSection('legal')" class="nav-link">Legal</a>
+                    <a href="javascript:void(0);" onclick="showSection('admin')" class="nav-link admin-link">Admin</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home-section" class="section active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Find Local Businesses in Your Community</h1>
+                    <p>A free, non-profit business directory connecting you with local services and enterprises</p>
+                    
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" id="main-search" placeholder="Search for businesses, services, or products..." class="form-control search-input">
+                            <input type="text" id="location-search" placeholder="Enter location..." class="form-control location-input">
+                            <button onclick="performSearch()" class="btn btn--primary search-btn">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-businesses">6</div>
+                        <div class="stat-label">Businesses</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-categories">8</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-locations">12</div>
+                        <div class="stat-label">Locations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-users">150+</div>
+                        <div class="stat-label">Happy Users</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="categories-section">
+            <div class="container">
+                <h2>Browse by Category</h2>
+                <div class="categories-grid" id="categories-grid">
+                    <!-- Categories populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Businesses -->
+        <div class="featured-section">
+            <div class="container">
+                <h2>Featured Businesses</h2>
+                <div class="businesses-grid" id="featured-businesses">
+                    <!-- Featured businesses populated by JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search-section" class="section">
+        <div class="container">
+            <div class="search-page">
+                <h2>Advanced Search</h2>
+                <div class="search-filters">
+                    <div class="filter-group">
+                        <label class="form-label">Keywords</label>
+                        <input type="text" id="search-keywords" class="form-control" placeholder="Enter keywords...">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Category</label>
+                        <select id="search-category" class="form-control">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" id="search-location" class="form-control" placeholder="Enter location...">
+                    </div>
+                    <div class="filter-group">
+                        <label class="form-label">Sort By</label>
+                        <select id="search-sort" class="form-control">
+                            <option value="name">Name (A-Z)</option>
+                            <option value="rating">Highest Rating</option>
+                            <option value="newest">Newest First</option>
+                        </select>
+                    </div>
+                    <button onclick="performAdvancedSearch()" class="btn btn--primary">Search</button>
+                </div>
+                <div id="search-results" class="search-results">
+                    <div class="results-header">
+                        <span id="results-count">0 businesses found</span>
+                    </div>
+                    <div id="results-grid" class="businesses-grid">
+                        <!-- Search results populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories-section" class="section">
+        <div class="container">
+            <h2>All Categories</h2>
+            <div id="all-categories-grid" class="categories-grid">
+                <!-- All categories populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal Section -->
+    <section id="legal-section" class="section">
+        <div class="container">
+            <div class="legal-content">
+                <h2>Legal Information</h2>
+                
+                <div class="legal-tabs">
+                    <button class="tab-btn active" onclick="showLegalTab('terms')">Terms of Service</button>
+                    <button class="tab-btn" onclick="showLegalTab('privacy')">Privacy Policy</button>
+                    <button class="tab-btn" onclick="showLegalTab('disclaimer')">Disclaimer</button>
+                </div>
+
+                <div id="terms-tab" class="legal-tab-content active">
+                    <h3>Terms of Service</h3>
+                    <div class="legal-text">
+                        <p><strong>Non-Profit Community Directory</strong></p>
+                        <p>This website is operated as a non-profit community service. By using this directory, you agree to the following terms:</p>
+                        <ol>
+                            <li><strong>Service Description:</strong> This directory provides business listings as a free community service. We are not responsible for the accuracy, completeness, or quality of business information provided.</li>
+                            <li><strong>Limitation of Liability:</strong> The directory operators, administrators, and hosting providers are not liable for any disputes, damages, or issues arising from business interactions facilitated through this platform.</li>
+                            <li><strong>Business Listings:</strong> Businesses are responsible for providing accurate information. The directory does not endorse or guarantee any listed business.</li>
+                            <li><strong>User Conduct:</strong> Users must provide accurate information when contacting businesses and comply with applicable laws.</li>
+                            <li><strong>Modifications:</strong> We reserve the right to modify these terms at any time without prior notice.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div id="privacy-tab" class="legal-tab-content">
+                    <h3>Privacy Policy</h3>
+                    <div class="legal-text">
+                        <p>This privacy policy explains how we handle information on our non-profit business directory:</p>
+                        <ul>
+                            <li><strong>Information Collection:</strong> We collect minimal information necessary for directory functionality.</li>
+                            <li><strong>Data Usage:</strong> Information is used solely for connecting users with local businesses.</li>
+                            <li><strong>No Selling of Data:</strong> As a non-profit, we do not sell or monetize user data.</li>
+                            <li><strong>Contact Information:</strong> Business contact details are publicly displayed as part of the directory service.</li>
+                            <li><strong>Cookies:</strong> We may use basic cookies for website functionality only.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="disclaimer-tab" class="legal-tab-content">
+                    <h3>Disclaimer</h3>
+                    <div class="legal-text">
+                        <p><strong>IMPORTANT DISCLAIMERS</strong></p>
+                        <p>Please read carefully before using this directory:</p>
+                        <ul>
+                            <li><strong>No Responsibility:</strong> The website host and creators are not responsible for disputes arising from business interactions.</li>
+                            <li><strong>Product Defects:</strong> We are not liable for any product defects, service issues, or business disputes.</li>
+                            <li><strong>Third-Party Content:</strong> All business information is provided by third parties and we cannot guarantee its accuracy.</li>
+                            <li><strong>Independent Contractors:</strong> Listed businesses are independent entities, not affiliated with this directory.</li>
+                            <li><strong>Use at Your Own Risk:</strong> Users interact with businesses at their own risk and responsibility.</li>
+                            <li><strong>No Warranties:</strong> This service is provided "as is" without any warranties.</li>
+                        </ul>
+                        <p><em>By using this directory, you acknowledge and accept these disclaimers and agree that the directory operators bear no responsibility for any issues arising from your interactions with listed businesses.</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Section -->
+    <section id="admin-section" class="section">
+        <div class="container">
+            <div class="admin-panel">
+                <h2>Admin Panel</h2>
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="showAdminTab('dashboard')">Dashboard</button>
+                    <button class="tab-btn" onclick="showAdminTab('add-business')">Add Business</button>
+                    <button class="tab-btn" onclick="showAdminTab('manage-businesses')">Manage Businesses</button>
+                </div>
+
+                <div id="dashboard-tab" class="admin-tab-content active">
+                    <h3>Dashboard</h3>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h4>Total Businesses</h4>
+                            <div class="stat-value" id="admin-stat-businesses">6</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Categories</h4>
+                            <div class="stat-value" id="admin-stat-categories">8</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Featured Listings</h4>
+                            <div class="stat-value" id="admin-stat-featured">3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="add-business-tab" class="admin-tab-content">
+                    <h3>Add New Business</h3>
+                    <form id="add-business-form" class="business-form">
+                        <div class="form-group">
+                            <label class="form-label">Business Name *</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category *</label>
+                            <select name="category" class="form-control" required>
+                                <option value="">Select Category</option>
+                                <option value="Agriculture">Agriculture</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Food & Beverage">Food & Beverage</option>
+                                <option value="Automotive">Automotive</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Professional Services">Professional Services</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Education">Education</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Industry *</label>
+                            <input type="text" name="industry" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description *</label>
+                            <textarea name="description" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" name="phone" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Website</label>
+                            <input type="url" name="website" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <textarea name="address" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Products/Services (comma separated)</label>
+                            <textarea name="products" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Business Hours</label>
+                            <textarea name="hours" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Logo Emoji</label>
+                            <input type="text" name="logo" class="form-control" maxlength="2" placeholder="🏢">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="featured"> Featured Business
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn--primary">Add Business</button>
+                    </form>
+                </div>
+
+                <div id="manage-businesses-tab" class="admin-tab-content">
+                    <h3>Manage Businesses</h3>
+                    <div id="business-list" class="business-list">
+                        <!-- Business list populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Detail Modal -->
+    <div id="business-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Business Details</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Business details populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeContactModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Contact Business</h3>
+                <button class="modal-close" onclick="closeContactModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label class="form-label">Your Name *</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your Email *</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subject *</label>
+                        <input type="text" name="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message *</label>
+                        <textarea name="message" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Community Directory</h4>
+                    <p>A non-profit community service connecting local businesses with customers.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <p>Email: admin@communitydirectory.org</p>
+                    <p>This is a non-profit service.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <p><a href="javascript:void(0);" onclick="showSection('legal'); showLegalTab('terms');">Terms of Service</a></p>
+                    <p><a href="javascript:void(0);" onclick="showSection('legal'); showLegalTab('privacy');">Privacy Policy</a></p>
+                    <p><a href="javascript:void(0);" onclick="showSection('legal'); showLegalTab('disclaimer');">Disclaimers</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Community Directory. Non-profit community service. Not responsible for business disputes or product defects.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
